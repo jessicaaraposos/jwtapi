@@ -1,5 +1,6 @@
 package com.github.jessicaraposo.service;
 
+import com.github.jessicaraposo.enums.UserRoleEnum;
 import com.github.jessicaraposo.util.PrimeNumberUtil;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -81,8 +82,8 @@ public class JwtService {
     }
 
     private void validateRole(String role) {
-        if (role == null || !VALID_ROLES.contains(role)) {
-            throw new MalformedJwtException("Claim 'Role' inválida. Valores permitidos: " + VALID_ROLES);
+        if (role == null || !UserRoleEnum.isValidRole(role)) {
+            throw new MalformedJwtException("Claim 'Role' inválida. Valores permitidos: " + UserRoleEnum.getValidRoles());
         }
     }
 
