@@ -1,4 +1,4 @@
-package com.github.jessicaraposo.jwtapi;
+package com.github.jessicaraposo.dto;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
