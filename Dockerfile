@@ -5,7 +5,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copia o arquivo JAR gerado pelo Maven
-COPY target/jwtapi-0.0.1-SNAPSHOT app.jar
+COPY target/jwtapi-0.0.1-SNAPSHOT.jar app.jar
 
 # Expõe a porta da aplicação
 EXPOSE 8080
