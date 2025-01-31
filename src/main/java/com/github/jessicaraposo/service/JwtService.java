@@ -17,10 +17,8 @@ import java.util.regex.Pattern;
 public class JwtService {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtService.class);
-
     private final Key secretKey;
 
-    private static final Set<String> VALID_ROLES = Set.of("Admin", "Member", "External");
     private static final Pattern NAME_PATTERN = Pattern.compile("^[^0-9]{1,256}$");
     private static final Set<String> REQUIRED_CLAIMS = Set.of("Name", "Role", "Seed");
 
@@ -61,14 +59,16 @@ public class JwtService {
 
             return true;
 
+        } catch (MalformedJwtException e) { // 🚨 Essa exceção deve ser propagada
+            logger.warn("Token malformado: {}", e.getMessage());
+            throw e; // 🔥 Relança a exceção para ser capturada no teste
         } catch (ExpiredJwtException e) {
             logger.warn("Token expirado: {}", e.getMessage());
         } catch (UnsupportedJwtException e) {
             logger.warn("Token não suportado: {}", e.getMessage());
-        } catch (MalformedJwtException e) {
-            logger.warn("Token malformado: {}", e.getMessage());
-        } catch (SignatureException e) {
+        }catch (SignatureException e) {
             logger.warn("Assinatura inválida: {}", e.getMessage());
+            throw e; // 🔥 Relançando para que o teste capture a exceção
         } catch (IllegalArgumentException e) {
             logger.warn("Erro na validação do token: {}", e.getMessage());
         }
