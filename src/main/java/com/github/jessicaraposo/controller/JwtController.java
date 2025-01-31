@@ -49,10 +49,12 @@ public class JwtController {
         boolean isValid = jwtService.validateToken(token);
 
         if (isValid) {
+            logger.info("Token Validado com sucesso");
             response.put("status", "success");
             response.put("message", "Token válido");
             return ResponseEntity.ok(response);
         } else {
+            logger.info("Token inválido");
             response.put("status", "error");
             response.put("message", "Token inválido");
             return ResponseEntity.status(401).body(response);
