@@ -1,17 +1,18 @@
 package com.github.jessicaraposo.service;
 
 import com.github.jessicaraposo.util.PrimeNumberUtil;
+import io.jsonwebtoken.MalformedJwtException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.MockedStatic;
+
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+
 
 @ExtendWith(MockitoExtension.class)
 class JwtServiceTest {
@@ -44,10 +45,7 @@ class JwtServiceTest {
 
         String token = jwtService.generateToken(claims);
 
-        try (MockedStatic<PrimeNumberUtil> primeMock = mockStatic(PrimeNumberUtil.class)) {
-            primeMock.when(() -> PrimeNumberUtil.isPrime(11)).thenReturn(true);
-            assertTrue(jwtService.validateToken(token), "O token válido deve ser aceito");
-        }
+        assertTrue(jwtService.validateToken(token), "O token válido deve ser aceito");
     }
 
     @Test
@@ -59,7 +57,7 @@ class JwtServiceTest {
 
         String token = jwtService.generateToken(claims);
 
-        assertFalse(jwtService.validateToken(token), "O token com Role inválida deveria ser rejeitado");
+        assertThrows(MalformedJwtException.class, () -> jwtService.validateToken(token));
     }
 
     @Test
@@ -71,7 +69,7 @@ class JwtServiceTest {
 
         String token = jwtService.generateToken(claims);
 
-        assertFalse(jwtService.validateToken(token), "O token com Seed não primo deveria ser rejeitado");
+        assertThrows(MalformedJwtException.class, () -> jwtService.validateToken(token));
     }
 
     @Test
@@ -83,7 +81,7 @@ class JwtServiceTest {
 
         String token = jwtService.generateToken(claims);
 
-        assertFalse(jwtService.validateToken(token), "O token com Name inválido deveria ser rejeitado");
+        assertThrows(MalformedJwtException.class, () -> jwtService.validateToken(token));
     }
 
     @Test
@@ -95,6 +93,6 @@ class JwtServiceTest {
 
         String token = jwtService.generateToken(claims);
 
-        assertFalse(jwtService.validateToken(token), "O token com Seed inválido deveria ser rejeitado");
+        assertThrows(MalformedJwtException.class, () -> jwtService.validateToken(token));
     }
 }

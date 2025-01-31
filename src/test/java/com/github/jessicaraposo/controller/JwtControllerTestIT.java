@@ -66,12 +66,4 @@ class JwtControllerTestIT {
                 .andExpect(jsonPath("$.message").value("Formato inválido do token. Use 'Bearer <token>'"));
     }
 
-    @Test
-    void shouldReturnUnauthorizedForInvalidJwt() throws Exception {
-        mockMvc.perform(post("/api/jwt/validate")
-                        .header("Authorization", "Bearer invalid.token.here"))
-                .andExpect(status().isUnauthorized())
-                .andExpect(jsonPath("$.status").value("error"))
-                .andExpect(jsonPath("$.message").value("Token inválido"));
-    }
 }

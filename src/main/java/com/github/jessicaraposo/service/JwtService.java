@@ -59,18 +59,22 @@ public class JwtService {
 
             return true;
 
-        } catch (MalformedJwtException e) { // 🚨 Essa exceção deve ser propagada
+        } catch (MalformedJwtException e) {
             logger.warn("Token malformado: {}", e.getMessage());
-            throw e; // 🔥 Relança a exceção para ser capturada no teste
+            throw e;
         } catch (ExpiredJwtException e) {
             logger.warn("Token expirado: {}", e.getMessage());
         } catch (UnsupportedJwtException e) {
             logger.warn("Token não suportado: {}", e.getMessage());
         }catch (SignatureException e) {
             logger.warn("Assinatura inválida: {}", e.getMessage());
-            throw e; // 🔥 Relançando para que o teste capture a exceção
+            throw e;
         } catch (IllegalArgumentException e) {
             logger.warn("Erro na validação do token: {}", e.getMessage());
+        }catch (JwtException e) {
+            throw e; // Deixa o ExceptionHandler tratar corretamente
+        } catch (Exception e) {
+            throw new JwtException("Erro ao validar token", e);
         }
         return false;
     }

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.TestPropertySource;
 
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestPropertySource(properties = "jwt.secret=SuperSecretKeyWithAtLeast32CharactersLong")
+@ComponentScan(basePackages = "com.github.jessicaraposo.jwtapi")
 class JwtServiceTestIT {
 
     private JwtService jwtService;

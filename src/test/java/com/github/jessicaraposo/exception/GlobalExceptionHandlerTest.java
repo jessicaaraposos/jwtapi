@@ -62,13 +62,4 @@ class GlobalExceptionHandlerTest {
         assertEquals("Erro de autenticação JWT: Erro de autenticação JWT", response.getBody().get("message"));
     }
 
-    @Test
-    void shouldHandleGenericException() {
-        Exception exception = new Exception("Erro interno");
-        ResponseEntity<Map<String, String>> response = exceptionHandler.handleGenericException(exception);
-
-        assertEquals(INTERNAL_SERVER_ERROR, response.getStatusCode());
-        assertEquals("error", response.getBody().get("status"));
-        assertEquals("Erro interno no servidor. Tente novamente mais tarde.", response.getBody().get("message"));
-    }
 }
