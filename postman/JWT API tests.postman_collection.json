@@ -1,0 +1,73 @@
+{
+	"info": {
+		"_postman_id": "526eeb0f-85c2-4e0a-bac7-42da79db3ac2",
+		"name": "JWT API tests",
+		"description": "Testes para validar requisições de gerar JWT e validar os mesmo segundo as regras:  \nStartFragment\n\n- Deve conter apenas 3 claims (Name, Role e Seed)\n    \n- A claim Name não pode ter carácter de números\n    \n- A claim Role deve conter apenas 1 dos três valores (Admin, Member e External)\n    \n- A claim Seed deve ser um número primo.\n    \n- O tamanho máximo da claim Name é de 256 caracteres.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15870748"
+	},
+	"item": [
+		{
+			"name": "Validate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer        eyJhbGciOiJIUzM4NCJ9.eyJSb2xlIjoiQWRtaW4iLCJTZWVkIjoiNzg0MSIsIk5hbWUiOiJUb25pbmhvIEFyYXVqbyJ9.W7Y0RU7HSvvUB7ve76QVH2JQw9H1icQgP38rlrvfrLOBXanFDuSR8anM4ieiaDaq",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/jwt/validate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"jwt",
+						"validate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "generate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Role\": \"Member\",\r\n  \"Org\": \"BR\",\r\n  \"Seed\": \"14627\",\r\n  \"Name\": \"Valdir Aranha\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/jwt/generate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"jwt",
+						"generate"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
