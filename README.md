@@ -124,6 +124,92 @@ O projeto **JWT API** fornece uma API REST para **geração e validação de tok
    ```
    http://localhost:<porta-exposta>/swagger-ui.html
    ```
+## 🚀 Massa de teste
+### Caso 1:
+- Entrada:
+   ```
+   eyJhbGciOiJIUzM4NCJ9.eyJSb2xlIjoiQWRtaW4iLCJTZWVkIjoiNzg0MSIsIk5hbWUiOiJUb25pbmhvIEFyYXVqbyJ9.W7Y0RU7HSvvUB7ve76QVH2JQw9H1icQgP38rlrvfrLOBXanFDuSR8anM4ieiaDaq
+   ```
+- Saída:
+   ```
+   {
+    "message": "Token v\u00e1lido",
+    "status": "success"
+   }
+   ```
+- Justificativa: As Claims recebidas são válidas.
+   ```
+   {
+  "Role": "Admin",
+  "Seed": "7841",
+  "Name": "Toninho Araujo"
+   }
+   ```
+   ### Caso 2:
+- Entrada:
+   ```
+   eyJhbGciOiJzI1NiJ9.dfsdfsfryJSr2xrIjoiQWRtaW4iLCJTZrkIjoiNzg0MSIsIk5hbrUiOiJUb25pbmhvIEFyYXVqbyJ9.QY05fsdfsIjtrcJnP533kQNk8QXcaleJ1Q01jWY_ZzIZuAg
+   ```
+- Saída:
+   ```
+   {
+       "status": "error",
+       "message": "Formato do token JWT inválido."
+   }
+   ```
+- Justificativa: Formato Inválido.
+   ### Caso 3:
+- Entrada:
+   ```
+   eyJhbGciOiJIUzM4NCJ9.eyJSb2xlIjoiRXh0ZXJuYWwiLCJTZWVkIjoiNzIzNDEiLCJOYW1lIjoiTTRyaWEgT2xpdmlhIn0.g9NRgu85QBXTO20V5E0sUht04kNDzS8px08pz_ppPjdZG_yWqtYHHkh2WeGr0O9t
+   ```
+- Saída:
+   ```
+   {
+    "status": "error",
+    "message": "Formato do token JWT inválido."
+   }
+   ```
+- Justificativa: Token JWT malformado: Claim 'Name' contém caracteres inválidos. Apenas letras são permitidas.
+   ```
+    { 
+     "Role": "External",
+     "Seed": "72341",
+     "Name": "M4ria Olivia"
+   }
+   ```
+   ### Caso 4:
+- Entrada:
+   ```
+  eyJhbGciOiJIUzM4NCJ9.eyJSb2xlIjoiTWVtYmVyIiwiT3JnIjoiQlIiLCJTZWVkIjoiMTQ2MjciLCJOYW1lIjoiVmFsZGlyIEFyYW5oYSJ9.0Z5e_WTcW0lKzUDyyVGyQk-ki-4viX7caclqxYGYGNfCKRnQtwdAtjmVGKCSeRCZ
+   ```
+- Saída:
+   ```
+  {
+    "status": "error",
+    "message": "Formato do token JWT inválido."
+   }
+   ```
+- Justificativa: Token JWT malformado: Token contém claims inválidas ou extras
+   ```
+    { 
+     "Role": "Member",
+     "Org": "BR",
+     "Seed": "14627",
+     "Name": "Valdir Aranha"
+   }
+   ```
+## 🧪 Testes
+O projeto contém testes unitários para:
+- `JwtServiceTest`
+- `JwtControllerTest`
+- `PrimeNumberUtilTest`
+- `GlobalExceptionHandlerTest`
+
+Execute os testes com:
+```sh
+mvn test
+```
 
 ## 🏗️ Arquitetura e Princípios de Engenharia
 
