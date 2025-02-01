@@ -35,19 +35,12 @@ O projeto **JWT API** fornece uma API REST para **geração e validação de tok
    ```
    http://localhost:8080/swagger-ui.html
    ```
-
 ### 📌 Opção 2: Executar com Docker
 
 1. Criar a imagem Docker:
 
    ```sh
    docker build -t jwtapi:latest .
-   ```
-
-   Verifique se a imagem foi criada corretamente:
-
-   ```sh
-   du
    ```
 
 2. Executar o container Docker:
@@ -66,12 +59,6 @@ O projeto **JWT API** fornece uma API REST para **geração e validação de tok
 
    ```
    http://localhost:8080/swagger-ui.html
-   ```
-
-   Ou utilize o **cURL**:
-
-   ```sh
-   curl -X POST "http://localhost:8080/api/jwt/generate" -H "Content-Type: application/json" -d '{"name":"Usuário", "role":"Admin"}'
    ```
 
 ## 🛠️ Executar no Kubernetes com Helm
